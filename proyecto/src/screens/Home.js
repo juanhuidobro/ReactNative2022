@@ -1,79 +1,65 @@
 import React, {Component} from 'react';
-import {
-    View,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    StyleSheet
-} from 'react-native';
+import { db, auth } from '../firebase/config';
+import { View,
+         Text,
+         TouchableOpacity, 
+         StyleSheet, 
+         ActivityIndicator,
+         FlatList, 
+         Image } from 'react-native';
+import Post from './Post';
 
-
-class Login extends Component{
+class Home extends Component {
     constructor(props){
-        super(props)
+        super(props);
         this.state={
-            email: '',
-            password: '',
+            posts:[]
         }
+    }
+    
+    componentDidMount(){
+        db.collection('posts').orderBy('createdAt', 'desc').onSnapshot(
+            docs => {
+                let posts = [];
+                docs.forEach( oneDoc => {
+                    posts.push({
+                        id: oneDoc.id,
+                        data: oneDoc.data()
+                    })
+                })
+
+                this.setState({
+                    posts: posts
+                })
+            }
+        )
+
+        
     }
 
 
     render(){
-        //Falta implementar for de login y el método que viene de mainNavigation 
+        // console.log(this.state);
         return(
                 <View style={styles.container}>
-                <Text style={styles.title}>Login</Text>
-                <TextInput 
-                    style={styles.field}
-                    keyboardType='default'
-                    placeholder='Email'
-                    onChangeText={text => this.setState({ email: text})}
-                />
-                <TextInput 
-                    style={styles.field}
-                    keyboardType='default'
-                    placeholder='password'
-                    secureTextEntry={true}
-                    onChangeText={text => this.setState({ password: text})}
-                />
-                <TouchableOpacity style={styles.button} onPress={()=>this.props.route.params.login(this.state.email, this.state.password)}>
-                    <Text style={ styles.buttonText}>Ingresar</Text>
-                </TouchableOpacity>   
-                 <TouchableOpacity onPress={ ()=>this.props.navigation.navigate('Registro') }>
-                        <Text>No tengo cuenta</Text>
-                 </TouchableOpacity>
-            
-            </View>
+                    <Text>Posteos</Text>
+                    <FlatList 
+                        data={this.state.posts}
+                        keyExtractor={post => post.id}
+                        renderItem = { ({item}) => <Post dataPost={item} 
+                        {...this.props} />}
+                    />
+                    
+                </View>
+
         )
     }
-
 }
 
 const styles = StyleSheet.create({
     container:{
-        paddingHorizontal:10,
-        marginTop: 10
-    },
-    title:{
-        marginBottom:20
-    },
-    field:{
-        borderColor: '#dcdcdc',
-        borderWidth: 1,
-        borderRadius: 2,
-        padding:3,
-        marginBottom:8
-
-    },
-    button: {
-        borderRadius: 2,
-        padding:3,
-        backgroundColor: 'green',
-    },
-    buttonText:{
-        color: '#fff'
+        flex:1
     }
 })
 
-
-export default Login;
+export default Home;

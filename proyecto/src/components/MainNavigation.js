@@ -62,10 +62,10 @@ class MainNavigation extends Component {
                             userName: userName,
                             createdAt: Date.now(),
                         })
-                        // .then( responseUsers => this.setState({
-                        //     loggedIn:true,
-                        // }))
-                        .thne( res => console.log(res))
+                         .then( responseUsers => this.setState({
+                             loggedIn:true,
+                        }))
+                        //.then( res => console.log(res))
                         .catch(error => console.log(error) )
 
                     })
