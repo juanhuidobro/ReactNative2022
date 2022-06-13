@@ -80,7 +80,6 @@ class Post extends Component{
                     <TouchableOpacity onPress={ () => this.props.navigation.navigate('Comentarios', { id: this.props.dataPost.id})} > 
                         <Text>Ver comentarios</Text>
                     </TouchableOpacity>   
-                    
                 </View>
         )
     }

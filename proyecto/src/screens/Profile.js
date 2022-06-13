@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
+import Post from './Post';
+import { db, auth} from '../firebase/config';
 import {
     View,
     Text,
-    TextInput,
-    TouchableOpacity,
-    StyleSheet
+    StyleSheet,
+    FlatList
 } from 'react-native';
 
 
@@ -16,23 +17,46 @@ class Profile extends Component{
             password: '',
         }
     }
+    componentDidMount(){
+        db.collection('posts').where('owner', '==',auth.currentUser.email).onSnapshot(
+            docs => {
+                let posts = [];
+                docs.forEach( oneDoc => {
+                    posts.push({
+                        id: oneDoc.id,
+                        data: oneDoc.data()
+                    })
+                })
 
-
-    render(){
-        console.log(this.props);
-        //Incluir en el render un ToucheableOpacity para ejecutar el método de logout que viene del padre. ¿Quién es el padre?
-        return(
-                <View>
-                    <Text> Mi Perfil</Text>
-                    <TouchableOpacity onPress={()=>this.props.route.params.logout()}>
-                        <Text>Logout</Text>
-                    </TouchableOpacity>
-                
-                </View>
+                this.setState({
+                    posts: posts
+                })
+            }
         )
-    }
+        }
+
+        render(){
+            // console.log(this.state);
+            return(
+                    <View style={styles.container}>
+                        <Text>Posteos</Text>
+                        <FlatList 
+                            data={this.state.posts}
+                            keyExtractor={post => post.id}
+                            renderItem = { ({item}) => <Post dataPost={item} 
+                            {...this.props} />}
+                        />
+                        
+                    </View>
+    
+            )
+        }
 
 }
-
+const styles = StyleSheet.create({
+    container:{
+        flex:1
+    }
+})
 
 export default Profile;
