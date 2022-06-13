@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import {
     View,
     Text,
-    TextInput,
     TouchableOpacity,
-    StyleSheet
+    StyleSheet,
+    Image
 } from 'react-native';
 import {auth, db} from '../firebase/config';
 import firebase from 'firebase';
@@ -62,7 +62,12 @@ class Post extends Component{
                 <View style={styles.separator}>
                     <Text>Post de: {this.props.dataPost.data.owner}</Text>
                     <Text>Texto del Post: {this.props.dataPost.data.description}</Text>
-                     <Text>Cantidad de likes: {this.state.cantidadDeLikes}</Text>
+                    <Text>Cantidad de likes: {this.state.cantidadDeLikes}</Text>
+                    <Image
+                        style={{width: 200, height: 200}} 
+                        source={{uri: this.props.dataPost.data.url}}
+                        size='cover'
+                    />
                     {
                         this.state.myLike ?
                         <TouchableOpacity onPress={()=> this.unLike()}>
