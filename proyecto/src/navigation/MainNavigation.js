@@ -88,7 +88,6 @@ class MainNavigation extends Component {
 
 
     render(){
-        //Stack.Group funciona como React.Fragment y nos permite agrupar Screens.
         console.log('En el render del menu: ' + this.state.registerError);
         return(
             <NavigationContainer>
@@ -102,7 +101,7 @@ class MainNavigation extends Component {
                             options = {{headerShown: false}}
                             initialParams = {{ logout: ()=> this.logout()}}
                         />
-                        {/* ACA VA LA PANTALL DE COMENTARIOS */}
+                        {/* ACA VA LA PANTALLa DE COMENTARIOS */}
                         <Stack.Screen 
                             name='Comentarios'
                             component={ Comments }

@@ -32,11 +32,9 @@ class MyCamera extends Component{
     }
 
     sacarFoto(){
-        //usar un método de la cámara para sacar la foto.abs
         this.metodosDeCamara.takePictureAsync()
             .then(  photo => {
                 this.setState({
-                    //obtener la url temporal para guardarla en un estado.
                     url:photo.uri,
                     showCamera: false,
                 })
@@ -56,7 +54,7 @@ class MyCamera extends Component{
                         .then( () => {
                             ref.getDownloadURL()
                             .then( url => {
-                                this.props.onImageUpload(url) //tiene que venir del padre.
+                                this.props.onImageUpload(url) 
                                 this.setState({photo:''})
                             })
                             .catch(error => console.log(error))
@@ -69,7 +67,7 @@ class MyCamera extends Component{
     }
 
     eliminarPreview(){
-        //Todo para alumnos.
+
     }
 
 
@@ -87,7 +85,7 @@ class MyCamera extends Component{
                         <TouchableOpacity 
                             style={styles.button}
                             onPress={()=>this.sacarFoto()}>
-                            <Text>Tomar foto</Text>
+                            <Text style={styles.texto}>Tomar foto</Text>
                         </TouchableOpacity>
                     </View> 
                     :
@@ -100,12 +98,12 @@ class MyCamera extends Component{
                         <TouchableOpacity 
                             style={styles.button}
                             onPress={()=>this.guardarFoto()}>
-                            <Text>Guardar Foto</Text>
+                            <Text style={styles.texto}>Guardar Foto</Text>
                         </TouchableOpacity>
                         <TouchableOpacity 
                             style={styles.button}
                             onPress={()=>this.eliminarPreview()}>
-                            <Text>Eliminar</Text>
+                            <Text style={styles.texto}>Eliminar</Text>
                         </TouchableOpacity>
                     </View> 
                 :
@@ -119,18 +117,21 @@ class MyCamera extends Component{
 
 const styles = StyleSheet.create({
     cameraBody: {
-        height: '80%',
+        height: '95%',
     },
     button:{
-        height: '20%',
-        borderColor: '#ccc',
-        borderWidth: 1,
+        height: '5%',
+        color: 'white',
+        backgroundColor: 'gray',
         padding: 5,
         borderRadius: 4,
         marginTop: 20
     },
     preview:{
         height:'80%'
+    },
+    texto: {
+        color: 'white'
     }
 }) 
 

@@ -33,28 +33,28 @@ class Menu extends Component {
                     name='Home' 
                     component={ Home }
                     options={
-                        { tabBarIcon: () => <FontAwesome name="home" size={24} color="black" /> }
+                        { tabBarIcon: () => <FontAwesome name="home" size={24} color="gray" /> }
                     }
                 />
                  <Tab.Screen 
                     name='New Post' 
                     component={ NewPost }
                     options={
-                        { tabBarIcon: () => <FontAwesome name="photo" size={24} color="black" /> }
+                        { tabBarIcon: () => <FontAwesome name="photo" size={24} color="gray" /> }
                     }
                 />
                  <Tab.Screen 
                     name='Search' 
                     component={ Search }
                     options={
-                        { tabBarIcon: () => <FontAwesome name="search" size={24} color="black" /> }
+                        { tabBarIcon: () => <FontAwesome name="search" size={24} color="gray" /> }
                     }
                 />                
                 <Tab.Screen 
                 name='Profile' 
                 component={ Profile }
                 options={
-                    { tabBarIcon: () => <FontAwesome name="user" size={24} color="black" /> }
+                    { tabBarIcon: () => <FontAwesome name="user" size={24} color="gray" /> }
                 }
                 initialParams={{logout: ()=>this.props.route.params.logout()}}
                 />

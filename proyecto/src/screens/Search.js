@@ -45,26 +45,22 @@ class Search extends Component {
 
 
     render(){
-        // console.log(this.state);
         return(
                 <View>
-                {/* Si no hay resultados deben mostrar un mensaje al usuario. Puede ser un mensaje único o segmenteado: en caso de que el usuario no exista o si el usuario existe indicar que aún no tiene posteos. */}
                     <Text>Posts del usuario: {this.state.whoIs}</Text>
-                    <View style={styles.form}>
+                    <View style={styles.formulario}>
                         <TextInput 
-                            style={styles.field}
+                            style={styles.buscador}
                             keyboardType='default'
                             placeholder='email a buscar...'
                             value={this.state.email}
                             onChangeText={text => this.setState({ email: text})}
                         />  
                         <TouchableOpacity
-                            style={styles.button} 
+                            style={styles.botton} 
                             onPress={()=>this.search(this.state.email)}
-                            //👇 Les dejo un dato sorpresa para los que llegaron hasta acá: así se deshabilita un touchable opacity
-                            disabled= {this.state.email == '' ? true : false }
                             >
-                            <Text style={ styles.buttonText}>Buscar</Text>
+                            <Text style={ styles.Texto}>Buscar</Text>
                         </TouchableOpacity>                         
                     </View>
                     <FlatList 
@@ -85,31 +81,25 @@ const styles = StyleSheet.create({
         flex:1,
         padding:10
     },
-    form:{
-        flex:1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginHorizontal:20,
+    formulario:{
+        padding: 20,
     },
-    field:{
-        borderColor: '#dcdcdc',
-        borderWidth: 1,
+    buscador:{
+        padding: 10,
+        width: '200',
+        borderRadius: '2',
+        borderColor: 'gray',
+        borderWidth: '2',
+    },
+    botton: {
         borderRadius: 2,
         padding:3,
-        marginBottom:8,
-        width:'70%',
-        marginBottom: 0,
-        lineHeight:40,
-    },
-    button: {
-        borderRadius: 2,
-        padding:3,
-        backgroundColor: 'green',
-        width:'29%',
+        backgroundColor: 'gray',
         textAlign: 'center',
+        width: '200'
     },
-    buttonText:{
-        color: '#fff'
+    texto: {
+        color: 'white',
     }
 })
 

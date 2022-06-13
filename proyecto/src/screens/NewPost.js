@@ -80,7 +80,10 @@ const styles = StyleSheet.create({
         height:'100%'
     },
     title:{
-        marginBottom:20
+        borderRadius: 2,
+        padding:3,
+        backgroundColor: 'gray',
+        color: 'white',
     },
     field:{
         borderColor: '#dcdcdc',
@@ -92,10 +95,10 @@ const styles = StyleSheet.create({
     button: {
         borderRadius: 2,
         padding:3,
-        backgroundColor: 'green',
+        backgroundColor: 'gray',
     },
     buttonText:{
-        color: '#fff'
+        color: 'white'
     }
 })
 

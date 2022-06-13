@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { AntDesign, FontAwesome } from '@expo/vector-icons'; 
 import {
     View,
     Text,
@@ -27,14 +28,13 @@ class Post extends Component{
     }
 
     like(){
-        //Agregar el email del user logueado en el array
         db.collection('posts')
             .doc(this.props.dataPost.id)
             .update({
                 likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email)
             })
             .then(()=> this.setState({
-                cantidadDeLikes:this.state.cantidadDeLikes + 1, //Se puede mejorar.
+                cantidadDeLikes:this.state.cantidadDeLikes + 1,
                 myLike: true,
             }))
             .catch(error => console.log(error))
@@ -42,14 +42,13 @@ class Post extends Component{
     }
 
     unLike(){
-        //Agregar el email del user logueado en el array
         db.collection('posts')
             .doc(this.props.dataPost.id)
             .update({
                 likes: firebase.firestore.FieldValue.arrayRemove(auth.currentUser.email)
             })
             .then(()=> this.setState({
-                cantidadDeLikes:this.state.cantidadDeLikes - 1, //Se puede mejorar
+                cantidadDeLikes:this.state.cantidadDeLikes - 1,
                 myLike: false
             }))
             .catch(error => console.log(error))
@@ -57,30 +56,30 @@ class Post extends Component{
 
 
     render(){
-        // console.log(this.props);
         return(
-                <View style={styles.separator}>
-                    <Text>Post de: {this.props.dataPost.data.owner}</Text>
-                    <Text>Texto del Post: {this.props.dataPost.data.description}</Text>
-                    <Text>Cantidad de likes: {this.state.cantidadDeLikes}</Text>
+                <View style={styles.contenedor}>
+                    <Text style={styles.text}>
+                        Post de: {this.props.dataPost.data.owner}</Text>
                     <Image
                         style={{width: 200, height: 200}} 
                         source={{uri: this.props.dataPost.data.url}}
                         size='cover'
                     />
+                    <Text style={styles.texto}>
+                        {this.props.dataPost.data.description}</Text>
                     {
                         this.state.myLike ?
                         <TouchableOpacity onPress={()=> this.unLike()}>
-                            <Text>Quitar Like</Text>
+                            <AntDesign name="dislike2" size={24} color="gray" />
                         </TouchableOpacity> :
                         <TouchableOpacity onPress={()=> this.like()}>
-                            <Text>Like</Text>
+                            <AntDesign name="like2" size={24} color="gray" />
                         </TouchableOpacity>                
                     }
+                    <Text> {this.state.cantidadDeLikes}</Text>
                     <TouchableOpacity onPress={ () => this.props.navigation.navigate('Comentarios', { id: this.props.dataPost.id})} > 
-                        <Text>Ver comentarios</Text>
+                    <FontAwesome name="commenting-o" size={24} color="gray" />
                     </TouchableOpacity>   
-                    
                 </View>
         )
     }
@@ -88,11 +87,24 @@ class Post extends Component{
 }
 
 const styles = StyleSheet.create({
-    separator:{
+    contenedor:{
         borderBottomColor: '#ddd',
-        borderBottomWidth: 1,
+        borderBottomWidth: 10,
         marginBottom: 10,
         paddingHorizontal:20
+    },
+    texto:{
+        borderRadius: 2,
+        padding:3,
+        backgroundColor: 'gray',
+        color: 'white',
+        width: 200,
+    },
+    text:{
+        borderRadius: 2,
+        padding:3,
+        backgroundColor: 'white',
+        width: 200,
     },
     
 })
