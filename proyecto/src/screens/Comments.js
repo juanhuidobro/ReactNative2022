@@ -4,7 +4,8 @@ import {
     Text,
     TextInput,
     TouchableOpacity,
-    StyleSheet
+    StyleSheet,
+    FlatList
 } from 'react-native'
 import firebase from 'firebase'
 import {db, auth} from '../firebase/config'

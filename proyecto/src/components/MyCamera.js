@@ -57,6 +57,7 @@ class MyCamera extends Component{
                             ref.getDownloadURL()
                             .then( url => {
                                 this.props.onImageUpload(url) //tiene que venir del padre.
+                                this.setState({photo:''})
                             })
                             .catch(error => console.log(error))
                         })
