@@ -1,5 +1,5 @@
 import React from 'react';
-import MainNavigation from './src/components/MainNavigation';
+import MainNavigation from './src/navigation/MainNavigation';
 
 
 export default function App() {
