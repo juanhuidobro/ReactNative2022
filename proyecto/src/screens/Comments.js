@@ -24,11 +24,11 @@ class Comments extends Component{
         //console.log(this.props) -> Veo que llega por props (deberían llegar las de navigation y de route)
         const idDoc = this.props.route.params.id
 
-        db.collection('NombreDeLaColleccion').doc(idDoc).onSnapshot(doc => {
+        db.collection('posts').doc(idDoc).onSnapshot(doc => {
             //Al pasarle directamente un valor me ahorro hacer el forEach etc...
             //console.log(doc.data()) -> Veo en qué propiedad están guardados los comentarios
             this.setState({
-                arrayComentarios: doc.data().propiedadDeComentarios
+                arrayComentarios: doc.data().comments
             })
         })
     }
@@ -44,8 +44,8 @@ class Comments extends Component{
         }
 
         if(elComentario !== ''){
-            db.collection('NombreDeLaColeccion').doc(idDoc).updte({
-                propiedadDeComentarios: firebase.firestore.FieldValue.arrayUnion(dataComment)
+            db.collection('posts').doc(idDoc).update({
+                comments: firebase.firestore.FieldValue.arrayUnion(dataComment)
             })
             .then(response => this.setState({nuevoComentario: ''}))
             .catch(error => console.log(error))

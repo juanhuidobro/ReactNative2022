@@ -46,7 +46,7 @@ class Search extends Component {
 
     render(){
         return(
-                <View>
+                <View style={styles.container}>
                     <Text>Posts del usuario: {this.state.whoIs}</Text>
                     <View style={styles.formulario}>
                         <TextInput 
