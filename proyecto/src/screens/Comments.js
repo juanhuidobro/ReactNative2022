@@ -56,6 +56,7 @@ class Comments extends Component{
     render(){ 
         return(
                 <View style={styles.container}>
+                    { this.state.arrayComentarios.length !== 0 ?
                     <FlatList
                     data = {this.state.arrayComentarios}
                     keyExtractor = {(item) => item.createdAt.toString()} //Uso como "id" el createdAt ya que es un valor único
@@ -65,6 +66,9 @@ class Comments extends Component{
                             <Text>{item.description}</Text>
                         </View>} //owner y description deben coincidir con lo que aparezca en la db de comentarios
                     />
+                    :
+                    <Text>Aún no hay comentarios. Sé el primero en opinar.</Text>
+                    }
 
                     <View>
                         <TextInput
@@ -76,9 +80,15 @@ class Comments extends Component{
                         keyboardType = 'default'
                         style = {styles.inputComment}
                         />
+                        { this.state.nuevoComentario !== '' ?
                         <TouchableOpacity onPress = {() => this.onSubmit(this.state.nuevoComentario)} style = {styles.btnComment}>
                             <Text>Publicar</Text>
                         </TouchableOpacity>
+                        :
+                        <TouchableOpacity style = {styles.btnComment2}>
+                            <Text style = {styles.text2}>Publicar</Text>
+                        </TouchableOpacity>
+                        }
                     </View>
                 </View>
         )
@@ -99,6 +109,14 @@ const styles = StyleSheet.create({
         width: '20%',
         padding: 10,
         backgroundColor: '#d3d3d3'
+    },
+    btnComment2:{
+        width: '20%',
+        padding: 10,
+        backgroundColor: '#6e6d6d'
+    },
+    text2:{
+      color: '#949292'  
     },
     container:{
         paddingHorizontal:10,
