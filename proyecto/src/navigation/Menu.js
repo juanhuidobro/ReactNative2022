@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-//1 Componentes de navegación
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { FontAwesome, Foundation } from '@expo/vector-icons'
@@ -14,8 +13,6 @@ import Search from '../screens/Search';
 
 const Tab = createBottomTabNavigator();
 
-//4 Armar el compoente con el render del menú
-
 class Menu extends Component {
     constructor(props){
         super(props)
@@ -27,7 +24,6 @@ class Menu extends Component {
 
     render(){
         return(
-            //Armar el menú. No se necesita repetir el container.
             <Tab.Navigator>
                 <Tab.Screen 
                     name='Home' 

@@ -1,14 +1,11 @@
 import React, {Component} from 'react';
 import { db, auth } from '../firebase/config';
 
-//Importar navegaciones
 import {NavigationContainer} from '@react-navigation/native';
 import  { createNativeStackNavigator} from '@react-navigation/native-stack';
 
-// Guardar la ejecución de Stack
 const Stack = createNativeStackNavigator();
 
-//importar las screens o lo que necesite el menú
 import Login from '../screens/Login';
 import Register from '../screens/Register';
 import Menu from './Menu'
@@ -25,9 +22,7 @@ class MainNavigation extends Component {
     }
     
     componentDidMount(){
-         //chequear que el usuario esté logueado.
        auth.onAuthStateChanged(user => {
-            // Si el usuario está logueado, cambiar el estado loggedIn: true
             if(user){
                 this.setState({
                     loggedIn:true
@@ -38,8 +33,6 @@ class MainNavigation extends Component {
 
 
     login(mail, pass){
-        //Debería loguear en Firebase y cambiar el estado loggedIn: true
-        //Debe pasar como método a el componente login
         auth.signInWithEmailAndPassword(mail, pass)
             .then(response => this.setState({
                 loggedIn:true
@@ -49,14 +42,9 @@ class MainNavigation extends Component {
     }
  
     register(mail, pass, userName){
-        //Debería registrar en Firebase y cambiar el estado loggedIn: true
-        //Debe pasar como método a el componente register
-        //console.log(this.state)
-        //Colocar el método de registración de Firebase
         auth.createUserWithEmailAndPassword(mail, pass)
             .then( responseRegister => {
-                console.log(responseRegister); 
-                //Guardar documento en colección de usuarios.
+                console.log(responseRegister)
                 db.collection('users').add({
                             email: mail,
                             userName: userName,
@@ -78,7 +66,6 @@ class MainNavigation extends Component {
     }
     
     logout(){
-        //Debe pasar como método a el componente Porfile
         auth.signOut()
             .then( response => this.setState({
                 loggedIn: false
@@ -101,12 +88,10 @@ class MainNavigation extends Component {
                             options = {{headerShown: false}}
                             initialParams = {{ logout: ()=> this.logout()}}
                         />
-                        {/* ACA VA LA PANTALLa DE COMENTARIOS */}
                         <Stack.Screen 
                             name='Comentarios'
                             component={ Comments }
                         />
-                        {/* ¿COMO SABEMOS CUAL ES EL POSTEO EN DONDE ESTAN LOS COMENTARIOS? */}
                     </Stack.Group> 
                     :
                     <Stack.Group> 

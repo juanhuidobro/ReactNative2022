@@ -19,9 +19,9 @@ class Register extends Component{
     }
 
     render(){
-        console.log(this.state.email);
-        console.log(this.state.password);
-        console.log(this.props);
+        //console.log(this.state.email)
+        //console.log(this.state.password)
+        //console.log(this.props)
         return(
             <View style={styles.container}>
                 <Text style={styles.title}>Registro</Text>

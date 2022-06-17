@@ -20,7 +20,6 @@ class Search extends Component {
         }
     }
     
-    // Obtener información a partir de una búsqueda.
     search(email){ 
         db.collection('posts').where('owner', '==', email).onSnapshot(
             docs => {

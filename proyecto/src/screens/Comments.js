@@ -21,26 +21,23 @@ class Comments extends Component{
     }
 
     componentDidMount(){
-        //console.log(this.props) -> Veo que llega por props (deberían llegar las de navigation y de route)
         const idDoc = this.props.route.params.id
 
         db.collection('posts').doc(idDoc).onSnapshot(doc => {
-            //Al pasarle directamente un valor me ahorro hacer el forEach etc...
-            //console.log(doc.data()) -> Veo en qué propiedad están guardados los comentarios
             this.setState({
                 arrayComentarios: doc.data().comments
             })
         })
     }
 
-    //Añadir un nuevo comentario: Actualizamos un documento en firebase
+
     onSubmit(elComentario){
-        const idDoc = this.props.route.params.id //Me guardo el valor en una constante
+        const idDoc = this.props.route.params.id 
 
         const dataComment = {
             owner: auth.currentUser.email,
             createdAt: Date.now(),
-            description: elComentario //Con esto onSubmit() solo sabe que tiene que recibir un parámetro y ejecutarse (es más dinámico) 
+            description: elComentario 
         }
 
         if(elComentario !== ''){
@@ -59,12 +56,12 @@ class Comments extends Component{
                     { this.state.arrayComentarios.length !== 0 ?
                     <FlatList
                     data = {this.state.arrayComentarios}
-                    keyExtractor = {(item) => item.createdAt.toString()} //Uso como "id" el createdAt ya que es un valor único
+                    keyExtractor = {(item) => item.createdAt.toString()} 
                     renderItem = {( {item} ) =>
                         <View style = {styles.comment}>
                             <Text>{item.owner}</Text>
                             <Text>{item.description}</Text>
-                        </View>} //owner y description deben coincidir con lo que aparezca en la db de comentarios
+                        </View>} 
                     />
                     :
                     <Text>Aún no hay comentarios. Sé el primero en opinar.</Text>

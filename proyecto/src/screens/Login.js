@@ -19,7 +19,6 @@ class Login extends Component{
 
 
     render(){
-        //Falta implementar for de login y el método que viene de mainNavigation 
         return(
                 <View style={styles.container}>
                 <Text style={styles.title}>Login</Text>
