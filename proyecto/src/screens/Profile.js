@@ -16,6 +16,8 @@ class Profile extends Component{
         this.state={
             email: '',
             password: '',
+            postsData: [],
+            userName: '',
         }
     }
     componentDidMount(){
@@ -23,28 +25,45 @@ class Profile extends Component{
             docs => {
                 let posts = [];
                 docs.forEach( oneDoc => {
-                    posts.push({
+                        posts.push({
                         id: oneDoc.id,
                         data: oneDoc.data()
                     })
                 })
-
+                this.setState({
+                  postsData: posts
+                })
         
     }
     )
+    db.collection('users').where('email', '==',auth.currentUser.email).onSnapshot(
+      docs => {
+        docs.forEach(
+          oneDoc => {
+            this.setState({
+              userName: oneDoc.data().userName
+            })
+          }
+        )
+      
+      }
+
+    )
 }
+
+
 
 
     render() {
        
         return (
           <View style={styles.container}>
-            <Text style={styles.text}>Usuario: {auth.currentUser.owner}</Text>
+            <Text style={styles.text}>Usuario: {this.state.userName}</Text>
             <Text style={styles.text}>E-mail: {auth.currentUser.email}</Text>
             <Text style={styles.text}>
               Última fecha de ingreso: {auth.currentUser.metadata.lastSignInTime}
             </Text>
-            <Text  style={styles.text}>Publicaciones: {this.state.posts}</Text> 
+            <Text  style={styles.text}>Publicaciones: {this.state.post}</Text> 
             <TouchableOpacity
               style={styles.button}
               onPress={() => this.props.route.params.logout()}>
@@ -52,15 +71,10 @@ class Profile extends Component{
               <Text style={styles.sign}> Cerrar sesión </Text>
             </TouchableOpacity>
             <FlatList
-              data={this.state.posts}
-              keyExtractor={(posts) => posts.id.toString()}
-              renderItem = { ({item}) => <View style={styles.container}>
-                <Image source= {{uri: this.props.dataPost.data.url}}style= {styles.imagen}/>
-                <Text style={styles.text}> Descripcion: {item.data.description} </Text>
-                <Text  style={styles.text}> Likes: {item.data.likes.length} </Text> 
-            </View>
-                  }
-            />
+              data={this.state.postsData}
+              keyExtractor={(posts) => posts.id}
+              renderItem = { ({item}) => <Post dataPost={item} 
+              {...this.props} />} />
           
           </View>
         )
