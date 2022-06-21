@@ -10,7 +10,7 @@ class Home extends Component {
     constructor(props){
         super(props);
         this.state={
-            posts:[]
+            postData:[]
         }
     }
     
@@ -26,7 +26,7 @@ class Home extends Component {
                 })
 
                 this.setState({
-                    posts: posts
+                    postData: posts
                 })
             }
         )
@@ -41,7 +41,7 @@ class Home extends Component {
                 <View style={styles.container}>
                     <Text>Posteos</Text>
                     <FlatList 
-                        data={this.state.posts}
+                        data={this.state.postData}
                         keyExtractor={post => post.id}
                         renderItem = { ({item}) => <Post dataPost={item} 
                         {...this.props} />}

@@ -16,7 +16,7 @@ class Profile extends Component{
         this.state={
             email: '',
             password: '',
-            postsData: [],
+            postData: [],
             userName: '',
         }
     }
@@ -31,7 +31,7 @@ class Profile extends Component{
                     })
                 })
                 this.setState({
-                  postsData: posts
+                  postData: posts
                 })
         
     }
@@ -54,6 +54,7 @@ class Profile extends Component{
 
 
 
+
     render() {
        
         return (
@@ -63,7 +64,7 @@ class Profile extends Component{
             <Text style={styles.text}>
               Última fecha de ingreso: {auth.currentUser.metadata.lastSignInTime}
             </Text>
-            <Text  style={styles.text}>Publicaciones: {this.state.post}</Text> 
+            <Text  style={styles.text}>Publicaciones: {this.state.postData.lenght}</Text> 
             <TouchableOpacity
               style={styles.button}
               onPress={() => this.props.route.params.logout()}>
@@ -71,7 +72,7 @@ class Profile extends Component{
               <Text style={styles.sign}> Cerrar sesión </Text>
             </TouchableOpacity>
             <FlatList
-              data={this.state.postsData}
+              data={this.state.postData}
               keyExtractor={(posts) => posts.id}
               renderItem = { ({item}) => <Post dataPost={item} 
               {...this.props} />} />
